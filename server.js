@@ -3,9 +3,39 @@ var bodyParser = require("body-parser");
 var cors = require("cors");
 var mongo = require("mongojs");
 var ObjectId = mongo.ObjectId;
+var Bird = require("./birdsModel");
+
+Bird.find({}, function(err, results){
+    
+});
+
+var newBird = new Bird({
+    scientificName: "Genus Menus Birdus Maximus",
+    color: "Blood Red",
+    region: "Sparta",
+    firstSightingEver: "09/01/1901",
+    food: "bird seed",
+    foodDetais: [{
+        name: "seed",
+        type: "food",
+        genus: "genus"
+    }],
+    wingspan: 5,
+    endangered: true,
+    nest: {
+        materials: ["woodchips","grass"],
+        size: 7,
+        timeToBuild: 2,
+        locationDesc: "Hill"
+    }
+});  
+
+newBird.save(newBird, function(err, results) {
+   console.log("New Bird Saved"); 
+});
                       
 var app = express();
-var db = mongo("birdsDB")
+var db = mongo("birdsDB");
 
 app.use(bodyParser.json());
 app.use(cors());
